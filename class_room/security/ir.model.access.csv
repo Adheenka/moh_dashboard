@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.classroom,access_classroom,class_room.model_classroom,base.group_user,1,1,1,1
+access.marklist,access_marklist,class_room.model_marklist,base.group_user,1,1,1,1
+
+access_classroom_report_wizard,access.classroom.report.wizard,class_room.model_classroom_report_wizard,,1,1,1,1
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--  <record model="ir.ui.view" id="board_my_dash_view">-->
+<!--            <field name="name">My Dashboard</field>-->
+<!--            <field name="model">board.board</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="My Dashboard">-->
+<!--                    <board style="2-1">-->
+<!--                        <column>-->
+<!--                        </column>-->
+<!--                    </board>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--<record id="action_dashboard" model="ir.actions.act_window">-->
+<!--    <field name="name">Classroom Dashboard</field>-->
+<!--    <field name="res_model">board.board</field>-->
+<!--    <field name="view_mode">form</field> &lt;!&ndash; You can adjust the view mode as needed &ndash;&gt;-->
+<!--    <field name="view_id" ref="board_my_dash_view"/>-->
+
+<!--</record>-->
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+            id="menu_classroom_root"
+            name="Classroom"
+            sequence="0"/>
+    <menuitem
+            id="menu_classroom_master"
+            name="student_details"
+            parent="menu_classroom_root"
+
+            sequence="0"/>
+    <menuitem
+            id="menu_report"
+            name="report"
+            parent="menu_classroom_root"
+            sequence="40"/>
+    <menuitem
+            id="menu_classroom_report"
+            name="classroom_report"
+            parent="menu_report"
+            action="action_report_customer"
+            sequence="10"/>
+    <menuitem
+            id="menu_classroom_dashboard"
+            name="classroom_dashboard"
+            parent="menu_classroom_root"
+            action=""
+            sequence="1"/>
+
+    <!--    &lt;!&ndash; commit 45 &ndash;&gt;-->
+    <!--    <menuitem-->
+    <!--            id="menu_classroom_kanban"-->
+    <!--            name="Kanban View"-->
+    <!--            parent="menu_classroom_master"-->
+    <!--            action="action_classroom_kanban"-->
+    <!--            sequence="1"/>-->
+
+
+    <!--    <menuitem-->
+    <!--            id="menu_classroom_graph"-->
+    <!--            name="Graph View"-->
+    <!--            parent="menu_classroom_master"-->
+    <!--            action="action_classroom_graph"-->
+    <!--            sequence="2"/>-->
+
+
+</odoo>

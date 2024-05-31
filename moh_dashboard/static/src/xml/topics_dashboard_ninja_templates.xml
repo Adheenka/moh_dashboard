@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<odoo>-->
+<!--    <data>-->
+<!--        <template id="ksDashboardNinjaHeader" inherit_id="ks_dashboard_ninja.ksDashboardNinjaHeader">-->
+<!--            <xpath expr="//li[@data-item='ks_to_do']" position="after">-->
+<!--                &lt;!&ndash; Insert the Topics section &ndash;&gt;-->
+<!--                <li data-item="ks_topics">-->
+<!--                    <span class="df_selection_text">Topics</span>-->
+<!--                </li>-->
+<!--            </xpath>-->
+<!--        </template>-->
+<!--    </data>-->
+<!--</odoo>-->
+
+
+<!--<odoo>-->
+<!--    <template id="ksDashboardNinjaHeader_inherit" inherit_id="ks_dashboard_ninja.ksDashboardNinjaHeader">-->
+<!--        <xpath expr="//ul[@id='ks_add_item_selection']/li[last()]" position="after">-->
+<!--            <li data-item="ks_topic">-->
+<!--                <span class="df_selection_text">Topic</span>-->
+<!--            </li>-->
+<!--        </xpath>-->
+<!--    </template>-->
+<!--</odoo>-->
+
+
+<!--# gokuls codes-->
+
+<templates xml:space="preserve">
+
+    <!-- Inherit the ksDashboardNinjaHeader template to add a new "Topic" menu item -->
+    <t t-name="ksDashboardNinjaHeader" t-extend="ksDashboardNinjaHeader">
+        <t t-jquery="ul#ks_add_item_selection" t-operation="append">
+            <li data-item="ks_topic">
+                <span class="df_selection_text">Topics</span>
+            </li>
+        </t>
+    </t>
+
+    <!-- Topic Dashboard Container -->
+    <t t-name="ks_topic_dashboard_container">
+        <div class="ks_dashboard_item ks_dashboarditem_id"
+             data-gs-width="4"
+             data-gs-height="4"
+             t-att-data-item-id="item_id"
+             t-att-data-id="item_id"
+             t-att-data-dashboard-id="item_id">
+            <div class="ks_dashboard_item_header p-3">
+                <span class="ks_chart_title">
+                    <t t-esc="ks_chart_title"/>
+                </span>
+            </div>
+            <div class="ks_dashboard_item_body ks_dashboard_item_content ks_topic_card_body">
+            </div>
+        </div>
+    </t>
+
+    <!-- Topic Dashboard Inner Container -->
+    <t t-name="ks_topic_dashboard_inner_container">
+        <div class="ks_dashboard_item_body">
+            <div class="ks_dashboard_item_header p-3">
+                <span class="ks_chart_title">
+                    <t t-esc="ks_topic_view_name"/>
+                </span>
+            </div>
+            <div class="ks_dashboard_item_body ks_dashboard_item_content">
+                <ul>
+                    <li t-foreach="topic_view_data" t-as="topic">
+                        <span t-esc="topic.name"/>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </t>
+</templates>

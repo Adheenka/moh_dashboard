@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_expense_form" model="ir.ui.view">
+            <field name="name">account.move.expense.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"></field>
+
+            <field name="arch" type="xml">
+
+<!--                <xpath expr="//field[@name='move_type']" position="after">-->
+<!--                    <h1 class="mt0">-->
+<!--                        <field name="sequence" attrs="{'invisible': [('is_expense', '=', False)]}"/>-->
+<!--                    </h1>-->
+<!--                </xpath>-->
+                <field name="move_type" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('is_expense', '!=', False)]}
+                    </attribute>
+                </field>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="is_expense" invisible="1"/>
+
+                </xpath>
+                <field name="partner_bank_id" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('is_expense', '!=', False)]}
+                    </attribute>
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('is_expense', '!=', False)]}
+                    </attribute>
+                </field>
+                <field name="invoice_payment_term_id" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('is_expense', '=', False)]}
+                    </attribute>
+                </field>
+                <field name="payment_reference" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('is_expense', '!=', False)]}
+                    </attribute>
+                </field>
+                <field name="invoice_date" position="attributes">
+                    <attribute name="string">Expense-Date{'invisible': [('is_expense', '!=', False)]}</attribute>
+
+                </field>
+
+                <field name="partner_id" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+
+                <!--              <xpath expr="//field[@name='invoice_line_ids']" position="attributes">-->
+                <!--                <attribute name="name">expense_line</attribute>-->
+                <!--            </xpath>-->
+
+<!--                <field name="ref" position="attributes"/>-->
+<!--                <attribute name="invisible">0</attribute>-->
+<!--                <attribute name="attrs">{'invisible': [('is_expense', '!=', False)]}-->
+<!--                </attribute>-->
+                <xpath expr="//label[@for='ref']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_expense', '!=', False)]}
+                    </attribute>
+
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_date']" position="attributes">
+
+                    <attribute name="string">Reference</attribute>
+
+                </xpath>
+
+                <!--                <xpath expr='/form/notebook/page[@string="Journal Items"]' position="replace">-->
+                <!--                    <attribute name="string">Matična številka</attribute>-->
+                <!--                </xpath>-->
+                <!--             <xpath expr="//field[@name='invoice_line_ids']" position="attributes">-->
+                <!--                <attribute name="force_save">1</attribute>-->
+                <!--            </xpath>-->
+                <notebook>
+                    <!--                    <page id="invoice_tab"-->
+                    <!--                              name="invoice_tab"-->
+                    <!--                              string="Expense Lines"-->
+                    <!--                              attrs="{'invisible': [('move_type', '=', 'entry')]}">-->
+                    <page string="Expense Line" attrs="{'invisible': [('is_expense', '=', False)]}">
+                        <field name="expense_line_ids" widget="one2many_list">
+                            <!--                        <field name="invoice_line_ids"-->
+                            <!--                               widget="section_and_note_one2many"-->
+                            <!--                               mode="tree,kanban">-->
+                            <!--                        <field name="invoice_line_ids"-->
+                            <!--                               widget="section_and_note_one2many"-->
+                            <!--                               mode="tree,kanban"-->
+                            <!--                               context="{'default_move_type': context.get('default_move_type'),'journal_id': journal_id,'default_partner_id': commercial_partner_id,'default_currency_id': currency_id or company_currency_id,}">-->
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <!--                                <field name="product_id"-->
+                                <!--                                            domain="[('expense_ok', '=', True)]"/>-->
+<!--                                <field name="account_id"/>-->
+                                        <field name="quantity"/>
+                    <field name="unit_price"/>
+                    <field name="tax"/>
+                    <field name="total"/>
+                    <field name="account_move_id" options="{'no_create_edit': True}"/>
+<!--                                <field name="quantity"/>-->
+<!--                                <field name="price_unit"/>-->
+<!--                                <field name="tax_ids" widget="many2many_tags"-->
+<!--                                       domain="[ ('company_id', '=', parent.company_id)]"-->
+<!--                                       context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"-->
+<!--                                       options="{'no_create': True}"-->
+<!--                                       optional="show"/>-->
+<!--                                <field name="price_subtotal"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+            </field>
+        </record>
+        <record id="view_in_invoice_expense_tree" model="ir.ui.view">
+            <field name="name">account.move.expense.tree</field>
+            <field name="model">account.move</field>
+
+            <field name="inherit_id" ref="account.view_in_invoice_bill_tree"></field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Name"/>
+                    <field name="is_expense"/>
+
+                    <field name="sequence"
+                           attrs="{'invisible': [('is_expense', '!=', False),('move_type', '==', 'entry')]}"/>
+                    <!--                    <xpath expr="//field[@name='name']" position="after">-->
+                    <!--    <field name="sequence" attrs="{'invisible': [('is_expense', '=', False),('move_type', '==', 'entry')]}"/>-->
+                    <!--</xpath>-->
+
+
+                </tree>
+
+
+            </field>
+        </record>
+        <!-- Define the action for Expenses -->
+        <!--        <record id="action_account_expense" model="ir.actions.act_window">-->
+        <!--            <field name="name">Expenses</field>-->
+        <!--            <field name="res_model">account.move</field>-->
+        <!--            <field name="view_mode">tree,form</field>-->
+        <!--            <field name="view_ids" eval="[(5, 0, 0),-->
+        <!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_in_invoice_bill_tree')}),-->
+        <!--                (0, 0, {'view_mode': 'form', 'view_id': ref('view_move_expense_form')})]"/>-->
+        <!--            <field name="search_view_id" ref="account.view_account_invoice_filter"/>-->
+        <!--            <field name="domain">[('move_type', '=', 'in_invoice'), ('is_expense', '=', True)]</field>-->
+        <!--            <field name="context">{'default_move_type': 'in_invoice', 'default_is_expense': True}</field>-->
+        <!--            <field name="help" type="html">-->
+        <!--                <p class="o_view_nocontent_smiling_face">-->
+        <!--                    Register a new expense-->
+        <!--                </p>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <record id="action_account_expense" model="ir.actions.act_window">
+            <field name="name">Expenses</field>
+
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('view_in_invoice_expense_tree')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('view_move_expense_form')})]"/>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="domain">[('move_type', '=', 'in_invoice'),('is_expense','=', True)]</field>
+            <field name="context">{'default_move_type': 'in_invoice', 'default_is_expense': True}</field>
+            <!--              <field name="domain">[('move_type', '=', 'out_invoice'),('is_expense', '=', True)]</field>-->
+            <!--            <field name="context">{'default_move_type': 'out_invoice', 'default_is_expense': True}</field>-->
+            <!--             <field name="domain">[('move_type', '=', 'entry'),('is_expense','=', True)]</field>-->
+            <!--             <field name="context">{'default_is_expense': True}</field>-->
+
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Register a new expense
+                </p>
+            </field>
+        </record>
+        <!-- Define the menu item for Expenses -->
+        <menuitem id="menu_account_expense" action="action_account_expense"
+                  parent="account.menu_finance" sequence="7"/>
+    </data>
+</odoo>

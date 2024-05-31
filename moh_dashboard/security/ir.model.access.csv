@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_moh_dashboard_moh_dashboard,moh_dashboard.moh_dashboard,model_moh_dashboard_moh_dashboard,base.group_user,1,1,1,1

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--<templates id="template" xml:space="preserve">-->
+<!--    <t t-extend="OrderReceipt"  >-->
+<!--        <t t-jquery=".pos-receipt .pos-receipt-contact" t-operation="append">-->
+<!--            <t t-if='receipt.client'>-->
+<!--             <t t-attf-if="receipt.client and widget.pos.get_client().dob">-->
+<!--                <div style="font-weight:bold;">dob: <t t-esc="receipt.client + ' ' + widget.pos.get_client().dob"/></div>-->
+<!--             </t>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </t>-->
+<!--</templates>-->
+<templates id="template" xml:space="preserve">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+            <t t-if="receipt.client">
+                <div class="pos-receipt-contact">
+                       <t>
+                        <div>
+                            <span style="color: #006400;">DOB : </span>
+                            <span style="color: green;"><t t-esc="receipt.client.dob" /></span>
+                        </div>
+                        <div>
+                            <span style="color: #006400;">Email : </span>
+                            <span style="color: green;"><t t-esc="receipt.client.email" /></span>
+                        </div>
+                    </t>
+                    <br/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+
+</templates>
+
+
+
+
+
+<!--        <templates id="template" xml:space="preserve">-->
+<!--            <t t-extend="OrderReceipt">-->
+<!--                <t t-jquery=".pos-receipt pos-receipt-contact" t-operation="append">-->
+<!--                    <t t-if="receipt.client and widget.pos.get_client().mobile">-->
+<!--                        <div style="font-weight:bold;">phone: <t t-esc="receipt.client + ' ' + widget.pos.get_client().mobile"/></div>-->
+<!--                    </t>-->
+<!--                </t>-->
+<!--                &lt;!&ndash; Display Date of Birth and Mobile Number &ndash;&gt;-->
+<!--                <t t-jquery=".pos-receipt .pos-receipt-contact" t-operation="append">-->
+<!--                    <div>Date of Birth: <t t-esc="receipt.dob"/></div>-->
+<!--                    <div>Mobile number: <t t-esc="receipt.mobile"/></div>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </templates>-->

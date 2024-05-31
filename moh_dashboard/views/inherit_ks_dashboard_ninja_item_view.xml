@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<odoo>-->
+<!--    <data>-->
+<!--        <record id="view_ks_dashboard_item_form_inherit" model="ir.ui.view">-->
+<!--            <field name="name">ks_dashboard_ninja_item.form.inherit</field>-->
+<!--            <field name="model">ks_dashboard_ninja.item</field>-->
+<!--            <field name="inherit_id" ref="ks_dashboard_ninja.item_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                &lt;!&ndash; Making the "Auto Update" page invisible for 'ks_to_do' type items &ndash;&gt;-->
+<!--                <xpath expr="//page[@string='Auto Update']" position="attributes">-->
+<!--                    <attribute name="attrs">{'invisible': [('ks_dashboard_item_type','=','ks_topic')]}</attribute>-->
+<!--                </xpath>-->
+<!--                &lt;!&ndash; Adding a new page for Topics &ndash;&gt;-->
+<!--                <xpath expr="//page[@name='action_settings']" position="attributes">-->
+<!--                    <attribute name="attrs">{'invisible': ['|', '|', ('ks_data_calculation_type', '!=', 'custom'), ('ks_dashboard_item_type', 'not in', ['ks_tile', 'ks_kpi', 'ks_bar_chart', 'ks_line_chart', 'ks_area_chart', 'ks_horizontalBar_chart', 'ks_pie_chart', 'ks_doughnut_chart', 'ks_polarArea_chart', 'ks_list_view']), '&amp;', ('ks_list_view_type', '=', 'ungrouped'), ('ks_dashboard_item_type', '=', 'ks_list_view'), ('ks_dashboard_item_type', '=', 'ks_topic')]}</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--    </data>-->
+<!--</odoo>-->
+
+<odoo>
+    <data>
+        <record id="view_ks_dashboard_item_form_inherit" model="ir.ui.view">
+            <field name="name">ks_dashboard_ninja_item.form.inherit</field>
+            <field name="model">ks_dashboard_ninja.item</field>
+            <field name="inherit_id" ref="ks_dashboard_ninja.item_form_view"/>
+            <field name="arch" type="xml">
+                <!-- Making the "Auto Update" page invisible for 'ks_to_do' type items -->
+                 <xpath expr="//page[@name='data_sets']/group[@name='ks_dn_header_line']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('ks_dashboard_item_type', 'not in', ['ks_to_do', 'ks_topic'])]}</attribute>
+                </xpath>
+                <!-- Adding a new page for Topics -->
+                <xpath expr="//page[@name='action_settings']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('ks_data_calculation_type', '!=', 'custom'), ('ks_dashboard_item_type', 'not in', ['ks_tile', 'ks_kpi', 'ks_bar_chart', 'ks_line_chart', 'ks_area_chart', 'ks_horizontalBar_chart', 'ks_pie_chart', 'ks_doughnut_chart', 'ks_polarArea_chart', 'ks_list_view']), '&amp;', ('ks_list_view_type', '=', 'ungrouped'), ('ks_dashboard_item_type', '=', 'ks_list_view'), ('ks_dashboard_item_type', '=', 'ks_topic')]}</attribute>
+                </xpath>
+                 <xpath  expr="//notebook/page[6]"  position="attributes">
+                    <attribute name="attrs">{'invisible': [('ks_dashboard_item_type', 'in', ['ks_to_do', 'ks_topic'])]}</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[7]" position="attributes">
+                    <attribute name="attrs">{'invisible': [('ks_dashboard_item_type', 'in', ['ks_to_do', 'ks_topic'])]}</attribute>
+                </xpath>
+                <!-- Adding a new page specifically for ks_topic -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Topic Settings" name="topic_settings" attrs="{'invisible': [('ks_dashboard_item_type', '!=', 'ks_topic')]}">
+                        <!-- Add your fields for the topic settings here -->
+                        <group>
+                            <field name="ks_topic_data"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='display_settings']/group" position="inside">
+                   
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
